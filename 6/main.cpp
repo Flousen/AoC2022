@@ -5,24 +5,20 @@
 #include <tuple>
 #include <map>
 #include <numeric>
+#include <bitset>
 
-std::vector<bool> f(char a){
-  std::vector<bool> vec(26);
+std::bitset<26> f(char a){
+  std::bitset<26> vec;
   vec[(int)a - 97] = true;
   return vec;
 }
 
 bool f(std::initializer_list<char> comp){
-  std::vector<bool> vec(26, false);
-  int sum=0,l=0;
-  for( auto el: comp ){
-    std::transform( vec.begin(), vec.end(), f(el).begin(), vec.begin(), std::logical_or<>() );
-    l++;
-  }
-  std::for_each(vec.begin(), vec.end(), [&sum](bool a){if(a) sum++;});
-  return sum == l;
+  std::bitset<26> vec;
+  for( auto el: comp )
+    vec |= f(el);
+  return vec.count() == comp.size();
 }
-
 
 int main() {
   // read data
