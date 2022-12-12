@@ -1,7 +1,7 @@
 CXX = g++
 
 main: main.cpp
-	g++ -o $@ $<
+	g++ -std=c++20 -o $@ $<
 	cat test.txt | ./$@ 
 
 final: main
