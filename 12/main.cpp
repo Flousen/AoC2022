@@ -10,12 +10,12 @@
 
 typedef std::pair<int, int> pt;
 typedef std::vector<std::vector<int>> grid;
+                                                  
+pt operator+(const pt & l,const pt & r) {   
+    return {l.first+r.first,l.second+r.second};                                    
+}
 
 std::vector<pt> dirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-
-pt add(pt a, pt b) { 
-  return { a.first + b.first, a.second + b.second };
-}
 
 bool is_inside ( grid& g, pt a) {
   if (a.first >= 0 && 
@@ -30,22 +30,21 @@ bool is_inside ( grid& g, pt a) {
 int shortest_path (grid g, pt s, pt e){
   std::deque<std::pair<pt,int>> active;
   std::set<pt> visited;
-  int height, dst;
-  pt nbr, cur;
+  int height;
+  pt nbr;
 
   active.push_front({s,0});
   visited.insert(s);
 
 
   while (!active.empty()){
-    cur = active.front().first;
-    dst = active.front().second; 
+    auto [cur, dst] = active.front();
 
     active.pop_front();
     height = g[cur.first][cur.second];
 
     for (auto & dir: dirs){
-      nbr = add(cur, dir);
+      nbr = cur + dir;
       if ( !is_inside(g, nbr) || 
            g[nbr.first][nbr.second] - height > 1 ) 
         continue;
