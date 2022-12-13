@@ -11,8 +11,9 @@
 typedef std::pair<int, int> pt;
 typedef std::vector<std::vector<int>> grid;
                                                   
-pt operator+(const pt & l,const pt & r) {   
-    return {l.first+r.first,l.second+r.second};                                    
+template <typename T,typename U>
+std::pair<T,U> operator+(const std::pair<T,U> & l,const std::pair<T,U> & r) {
+    return {l.first+r.first,l.second+r.second};
 }
 
 std::vector<pt> dirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
